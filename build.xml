@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="jee_design2018" basedir="." default="">
+    <property name="prj.name" value="jee_design2018"/>
+	<property name="webinf.home" value="WebRoot/WEB-INF"/>	
+	<property name="build.dir" value="${webinf.home}/classes"/>
+	<property name="lib.dir" value="${webinf.home}/lib"/>
+	<property name="zip.name" value="${prj.name}-${DSTAMP}${TSTAMP}.zip"/>
+	<property environment="env" />
+	<property file="build.properties" />
+	<path id="cp">
+		<pathelement path="${build.dir}" />
+		<fileset dir="${lib.dir}" includes="*.jar"/>
+	</path>
+	<tstamp>
+	   <format property="date" pattern="MMdd"/>
+	</tstamp>
+	<target name="echo">
+		<echo message="${env.ANT_HOME}" />
+		<echo message="${env.JAVA_HOME}" />
+		<echo message="${ant.project.name}" />
+		<echo message="${DSTAMP}${TSTAMP}" />
+		<echo message="${date}"/>
+	</target>
+	<target name="db-start">
+		<java fork="true" spawn="false" classname="org.hsqldb.server.Server"
+			classpathref="cp" dir="${lib.dir}" />
+	</target>
+	<target name="db-manager">
+		<java fork="true" spawn="true" classname="org.hsqldb.util.DatabaseManagerSwing"
+			classpathref="cp" />
+	</target>
+	<target name="db-shutdown">
+		<sql driver="org.hsqldb.jdbcDriver" url="jdbc:hsqldb:hsql://localhost" userid="sa"
+			password="" classpathref="cp" onerror="continue"
+			failOnConnectionError="false">
+			shutdown
+		</sql>
+	</target>
+	<target name="zip"  depends="db-shutdown">
+		<zip destfile="../${prj.name}${date}.zip/"
+			basedir=".." excludes="**/WEB-INF/lib/**,**/WEB-INF/classes/**,**/*.bak" includes="${prj.name}/**" />
+	</target>
+</project>

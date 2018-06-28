@@ -1,0 +1,5 @@
+classes
+/WebRoot/WEB-INF/lib/*.jar
+test.lck
+test.log
+*.log

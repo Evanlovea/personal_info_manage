@@ -1,0 +1,16 @@
+# 一般说明
+库文件已经准备好
+web.xml已经准备好,struts.xml是一个空文件。
+日志配置log4j2.xml，ant文件build.xml。
+为了和上课代码区分，部署目录为jeed2018
+http://localhost:8080/jeed2018
+# 代码库
+已经准备.gitignore文件， 使用代码库时不会上传jar文件和class文件
+# 输入日期和文本编辑器
+date_input.jsp是输入日期代码，richtext.jsp中是文本编辑器代码。
+# 关于日志
+生成的日志文件在d:/logs目录下，可以自己修改位置和信息级别。
+# 关于数据库
+用ant启动数据库，用的lib目录下的hsqldb.jar文件，数据库文件是test.script，也在该目录。打包的时候需要注意。
+上课已经讲过，db-start启动数据库，注意启动一次就行，多次启动会有错误。
+db-shutdown关闭数据库，db-manager图形界面管理。zip是一个压缩任务，不会压缩.jar和.class文件。不过文件名用的是工程名+时间戳，和电子版打包指南对文件名要求不一样。
