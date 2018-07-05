@@ -4,5 +4,103 @@
     "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
 	<constant name="struts.devMode" value="true" />	
-	
+	<package name="default"  extends="struts-default">
+	<!--用户登录功能实现  -->
+		<action name="loginAction" class="controller.loginActionController.LoginAction">
+			<result name="success">/mainFrame/main.jsp</result>
+			<result name="input">/login/index.jsp</result>
+			<result name="error">/login/index.jsp</result>
+		</action>
+		<!--用户注册功能实现  -->
+		<action name="registerAction" class="controller.loginActionController.RegisterAction">
+			<result name="success">/login/index.jsp</result>
+			<result name="input">/login/register.jsp</result>
+			<result name="error">/login/register.jsp</result>
+		</action>
+		<!-- 更新个人信息功能实现 -->
+		<action name="upMessAction" class="controller.personManagerController.UpdateMessAction">
+			<result name="success">/personMessage/lookMessage.jsp</result>
+			<result name="input">/personMessage/updateMessage.jsp</result>
+			<result name="error">/personMessage/updateMessage.jsp</result>
+		</action>
+		<!-- 更新用户个人密码逻辑实现 -->
+		<action name="upPassAction" class="controller.personManagerController.UpdatePassAction">
+			<result name="success">/personMessage/lookMessage.jsp</result>
+			<result name="input">/personMessage/updatePass.jsp</result>
+		</action>
+		<!--增加用户朋友信息  -->
+		    <action name="addFriAction" class="controller.friendManagerController.AddFriAction">
+            <result name="success">/friendManager/lookFriends.jsp</result>
+            <result name="input">/friendManager/addFriend.jsp</result>
+        </action>
+        <!-- 查找联系人 -->
+        <action name="findFriAction" class="controller.friendManagerController.FindFriAction">
+            <result name="success">/friendManager/findFriend.jsp</result>
+            <result name="error">/friendManager/lookFriends.jsp</result>
+            <result name="input">/friendManager/lookFriends.jsp</result>
+        </action>
+        <!-- 修改联系人 -->
+        <action name="upFriAction" class="controller.friendManagerController.UpdateFriAction">
+            <result name="success">/friendManager/lookFriends.jsp</result>
+            <result name="input">/friendManager/updateFriend.jsp</result>
+        </action>
+        <!-- 删除联系人 -->
+        <action name="deleteFriAction" class="controller.friendManagerController.DeleteFriAction">
+            <result name="success">/friendManager/lookFriends.jsp</result>
+        </action>
+        <!--增加日程信息  -->
+        <action name="addDayAction" class="controller.dateTimeManagerController.AddDayAction">
+            <result name="success">/dateTimeManager/lookDay.jsp</result>
+            <result name="input">/dateTimeManager/addDay.jsp</result>
+            <result name="error">/dateTimeManager/addDay.jsp</result>
+        </action>
+        <!-- 查找日程信息 -->
+        <action name="findDayAction" class="controller.dateTimeManagerController.FindDayAction">
+            <result name="success">/dateTimeManager/findDay.jsp</result>
+            <result name="input">/dateTimeManager/lookDay.jsp</result>
+            <result name="error">/dateTimeManager/lookDay.jsp</result>
+        </action>
+        <!-- 更新日程信息 -->
+        <action name="upDayAction" class="controller.dateTimeManagerController.UpdateDayAction">
+            <result name="success">/dateTimeManager/lookDay.jsp</result>
+            <result name="input">/dateTimeManager/updateDay.jsp</result>
+            <result name="error">/dateTimeManager/updateDay.jsp</result>
+        </action>
+        <!-- 删除日程信息 -->
+        <action name="deleteDayAction" class="controller.dateTimeManagerController.DeleteDayAction">
+            <result name="success">/dateTimeManager/lookDay.jsp</result>
+        </action>
+        <!-- 上传文件 -->
+        <action name="addFileAction" class="controller.fileManagerController.AddFileAction">
+            <interceptor-ref name="fileUpload">
+                <param name="maximumSize">1024000000</param>   
+            </interceptor-ref>
+            <interceptor-ref name="defaultStack"/>
+                <param name="savePath">/myFiles</param>
+            <result name="success">/fileManager/success.jsp</result>
+            <result name="input">/fileManager/fileUp.jsp</result>
+            <result name="error">/fileManager/fileUp.jsp</result>
+        </action>
+        <!--  查找文件-->
+        <action name="findFileAction" class="controller.fileManagerController.FindFileAction">
+            <result name="success">/fileManager/findFile.jsp</result>
+            <result name="input">/fileManager/lookFile.jsp</result>
+            <result name="error">/fileManager/lookFile.jsp</result>
+        </action>
+        <!-- 删除文件 -->
+        <action name="deleteFileAction" class="controller.fileManagerController.DeleteFileAction">
+            <result name="success">/fileManager/lookFile.jsp</result>
+            <result name="error">/fileManager/findFile.jsp</result>
+        </action>
+        <!-- 下载文件 -->
+        <action name="downFileAction" class="controller.fileManagerController.DownFileAction">
+            <param name="path">/myfiles/${downloadFileName}</param>
+            <result name="success" type="stream">
+                <param name="contentType">application/octet-stream;charset=UTF-8</param>
+                <param name="inputName">inputStream</param>
+                <param name="contentDisposition">attachment;filename="${downloadFileName}"</param>
+                <param name="bufferSize">40960</param>
+            </result>
+        </action>
+	</package>
 </struts>
